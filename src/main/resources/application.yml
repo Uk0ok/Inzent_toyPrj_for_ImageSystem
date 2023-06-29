@@ -1,0 +1,63 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: temp
+  datasource:
+    password: B394053
+    username: B394053
+    url: jdbc:oracle:thin:@192.168.100.37:1521/ORCL
+    driver-classname: oracle.jdbc.OracleDriver
+  thymeleaf:
+    prefix : classpath:templates/
+    suffix : .html
+    cache : false
+  mvc:
+    static-path-pattern: "/static/**"
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  file:
+    path: log
+  level:
+    com:
+      inzent:
+        toy: debug
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    callSettersOnNulls: true
+    returnInstanceForEmptyRow: true
+    jdbc-type-for-null: 'NULL'
+
+xtorm:
+  engineIp: 192.168.100.35
+  enginePw: SUPER
+  description: TOY_PRJ
+  engineId: SUPER
+  enginePort: '50003'
+  gateway: XTORM_MAIN
+  # tempPath: C:\dev\JAVA\toyprj_uk0ok\toy\
+  tempPath: /home/p394053/tempPath/
+  # downPath: C:\dev\JAVA\toyprj_uk0ok\toy\src\main\resources\static\download\
+  downPath: /home/p394053/downPath/
+  eclassId: IMAGE
+
+server:
+  port: '40003'
+  tomcat:
+    additional-tld-skip-patterns: "*.jar"
+
+multipartResolver:
+  id: multipartResolver
+  class: org.springframework.web.multipart.commons.CommonsMultipartResolver
+  properties:
+    maxUploadSize: 102400000
+
+

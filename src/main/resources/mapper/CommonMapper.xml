@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inzent.toy.mapper.CommonMapper">
+
+    <select id="getECodeList" resultType="string">
+		SELECT EMP_CD 
+		FROM EMPLOYEE_TB
+	</select>
+
+	<select id="getCustNo" resultType="string" parameterType="string">
+		SELECT DISTINCT(CUST_NO)
+		FROM COMMON_TB
+		WHERE RRN_NO = #{rrnNo}
+		UNION
+		SELECT DISTINCT(CUST_NO)
+		FROM DEPOSIT_TB
+		WHERE RRN_NO = #{rrnNo}
+		UNION
+		SELECT DISTINCT(CUST_NO)
+		FROM LOAN_TB
+		WHERE RRN_NO = #{rrnNo}
+	</select>
+
+	<select id="getRrnNoList" resultType="string">
+		SELECT DISTINCT(RRN_NO)
+		FROM COMMON_TB
+		UNION
+		SELECT DISTINCT(RRN_NO)
+		FROM DEPOSIT_TB
+		UNION
+		SELECT DISTINCT(RRN_NO)
+		FROM LOAN_TB
+	</select>
+
+	<insert id="insertToCommonTable" parameterType="map">
+		INSERT INTO COMMON_TB (
+			TOY_KEY, 
+			CUST_NO,
+			CUST_NM,
+			RRN_NO,
+			EMP_CD_INI,
+			EMP_CD_FIN
+		) VALUES (
+			#{toyKey},
+			#{custNo},
+			#{custName},
+			#{rrnNo},
+			#{empCode},
+			#{empCode}
+		)
+	</insert>
+
+	<insert id="insertToImageTable" parameterType="map">
+		INSERT INTO IMAGE_TB (
+				ELEMENTID, 
+				SEQ_NO,
+				TOY_KEY,
+				DOC_CD,
+				LCAT_CD,
+				FILE_NM,
+				EXTENSION,
+				WARRANTY_PER,
+				EMP_CD_INI,
+				EMP_CD_FIN
+			) VALUES (
+				#{elementId},
+				#{seqNo},
+				#{toyKey},
+				#{docCode},
+				#{lcatCode},
+				#{fileName},
+				#{extension},
+				TO_CHAR(SYSDATE + #{warrantyPer}, 'YYYYMMDDHH24MISS'),
+				#{empCode},
+				#{empCode}
+			)
+	</insert>
+</mapper>

@@ -1,0 +1,49 @@
+
+<div class="modal fade modal-xl" id="imageListModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title text-primary fw-bolder mb-0" id="exampleModalLabel"></h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body" id="imageListBody">
+			<!-- imageModal.html 교체 -->
+			<table class="table text-center table-stripeduser" id="imageListTable">
+				<thead>
+					<tr>
+						<th>이미지키</th>
+						<th>시퀀스</th>
+						<th>문서코드</th>
+						<th>파일이름</th>
+						<th>확장자</th>
+						<th>등록일</th>
+						<th>삭제</th>
+						<th>다운로드</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="image : ${viewImage}">
+						<td id="elementIdView" style="cursor: pointer;" th:attr="data-elementId=${image['ELEMENTID']}">
+							<span th:text="${image['ELEMENTID']}"></span>
+						</td>
+						<!-- <td th:text="${image['ELEMENTID']}"></td> -->
+						<td th:text="${image['SEQ_NO']}"></td>
+						<td th:text="${image['DOC_CD']}"></td>
+						<td th:attr="data-fileNm=${image['FILE_NM']}">
+							<span th:text="${image['FILE_NM']}"></span>
+						</td>
+						<td th:attr="data-extension=${image['EXTENSION']}">
+							<span th:text="${image['EXTENSION']}"></span>
+						</td>
+						<!-- <td th:text="${image['EXTENSION']}"></td> -->
+						<td th:text="${image['REG_DATE_INI']}"></td>
+						<td><input type="button" id="deleteImage" class="btn btn-dangerDel" value="삭제"></td>
+						<td><input type="button" id="downloadImage" class="btn btn-userAdd" value="다운로드"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>

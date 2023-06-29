@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>수신 업무</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../../static/image/main/favicon.ico" />
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link th:href="@{https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap}" rel="stylesheet" />
+        <!-- Bootstrap icons-->
+        <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/static/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+            <div th:replace="common/header :: header"></div>
+            <!-- Header-->
+
+            <section class="py-5">
+                <div class="container px-5 mb-5">
+                    <div class="text-center">
+                        <h2 class="text-primary fw-bolder mb-0">수신 업무 등록</h2>
+                    </div>
+                    <form id="deposit" action="/toy/deposit" method="post" enctype="multipart/form-data" onsubmit="return false;">
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 30px;">기본 정보</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <label for="employee" class="col-form-label" style="float: left; padding-right: 10px;">사원 코드 : </label>
+                                <input type="text" list="list" id="employeeSelectBox" name="employeeSelectBox" style="width:130px; height: 40px;" class="form-select"/>
+                                <datalist id="list">
+                                    <th:block th:each="employee : ${employeeList}">
+                                        <option th:value="${employee}" th:text="${employee}"></option>
+                                    </th:block>
+                                </datalist>
+                            </div>
+                            <div class="form-floating mb-3" style="width: 49%; float: left;">
+                                <input class="form-control" id="custName" type="text" placeholder="Enter your name..." data-sb-validations="required" data-sb-can-submit="no">
+                                <label for="custName">고객명</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <div class="form-floating mb-3" style="width: 49%; float: right;">
+                                <input class="form-control" id="rrnNo" type="text" maxlength="13" placeholder="Enter your name..." data-sb-validations="required" data-sb-can-submit="no">
+                                <label for="rrnNo">주민번호</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 50px;">거래신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="transactionFiles" name="transactionFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">예금잔액증명 의뢰서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="depositBalanceFiles" name="depositBalanceFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">위임장</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="attorneyFiles" name="attorneyFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">정기예금 원 이자 자동이체 신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="automaticFiles" name="automaticFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">제신고 및 재발급 신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="reissuanceFiles" name="reissuanceFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">전자금융서비스 이용신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="electronicFiles" name="electronicFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">상속예금(지급 명의 변경) 의뢰 및 이자소득 귀속동의서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="consentFiles" name="consentFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">CMS출금이체 신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="cmsFiles" name="cmsFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">비거주자 판정표</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="judgingFiles" name="judgingFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">세금우대 적용배재 신청서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="exclusionFiles" name="exclusionFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                        </div>
+                        <input type="text" id="description" name="description" hidden value="deposit work">
+                        <!-- <input type="text" id="cclassId" name="cclassId" hidden value="TEST_CC"> -->
+                        <input type="text" id="cclassId" name="cclassId" hidden value="DP_CC">
+                        <input type="text" id="userClass" name="userClass" hidden value="SUPER">
+                        <input type="text" id="eclassId" name="eclassId" hidden value="IMAGE">
+                        <br>
+                        <div class="d-grid"><button class="btn btn-userAdd px-2 py-1" id="submitButton" type="submit" >등록</button></div>
+                    </form>
+                </div>
+            </section>
+
+            <div th:include="common/footer :: footer"></div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script th:src="@{/static/js/api/deposit.js}"></script>
+    </body>
+</html>

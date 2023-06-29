@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>공통 업무</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../../static/image/main/favicon.ico" />
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link th:href="@{https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap}" rel="stylesheet" />
+        <!-- Bootstrap icons-->
+        <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css}" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{/static/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column h-100 bg-light">
+        <main class="flex-shrink-0">
+            <div th:replace="common/header :: header"></div>
+            <!-- Header-->
+
+            <section class="py-5">
+                <div class="container px-5 mb-5">
+                    <div class="text-center">
+                        <h2 class="text-primary fw-bolder mb-0">공통 업무 등록</h2>
+                    </div>
+                    <form id="common" action="/toy/common" method="post" enctype="multipart/form-data" onsubmit="return false;">
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 30px;">기본 정보</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <label for="employee" class="col-form-label" style="float: left; padding-right: 10px;">사원 코드 : </label>
+                                <input type="text" list="list" id="employeeSelectBox" name="employeeSelectBox" style="width:130px; height: 40px;" class="form-select"/>
+                                <datalist id="list">
+                                    <th:block th:each="employee : ${employeeList}">
+                                        <option th:value="${employee}" th:text="${employee}"></option>
+                                    </th:block>
+                                </datalist>
+                            </div>
+                            <div class="form-floating mb-3" style="width: 49%; float: left;">
+                                <input class="form-control" id="custName" type="text" placeholder="Enter your name..." data-sb-validations="required" data-sb-can-submit="no">
+                                <label for="custName">고객명</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                            <div class="form-floating mb-3" style="width: 49%; float: right;">
+                                <input class="form-control" id="rrnNo" type="text" maxlength="13" placeholder="Enter your name..." data-sb-validations="required" data-sb-can-submit="no">
+                                <label for="rrnNo">주민번호</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 50px;">전표</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="slipFiles" name="slipFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="slipDocCode" hidden value="01001001"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">인감증명서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="sealFiles" name="sealFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="sealDocCode" hidden value="01003001"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">주민등록초본</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="copyFiles" name="copyFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="copyDocCode" hidden value="01003002"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">호적등초본</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="familyFiles" name="familyFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="familyDocCode" hidden value="01003003"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">비거주자 판정표</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="nonresidentFiles" name="nonresidentFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="nonresidentDocCode" hidden value="01003004"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">사업자등록증</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="entrepreneurFiles" name="entrepreneurFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="entrepreneurDocCode" hidden value="01003005"> -->
+                        </div>
+                        <div>
+                            <p class="lead fw-normal text-muted mb-0" style="margin-top: 40px;">단체확인서</p>
+                            <div class="mb-2" flex="justify-content: space-between;" style="margin-top: 10px;">
+                                <input type="file" class="form-control" id="groupFiles" name="groupFiles" multiple accept=".exel, .xlsx, .xls, .xml, .hwp, .docx, .doc, .txt, .ppt, .pptx, .pdf, .jpg, .jpeg, .png">
+                            </div>
+                            <!-- <input type="text" id="groupDocCode" hidden value="01003006"> -->
+                        </div>
+                        <input type="text" id="description" name="description" hidden value="common work">
+                        <!-- <input type="text" id="cclassId" name="cclassId" hidden value="TEST_CC"> -->
+                        <input type="text" id="cclassId" name="cclassId" hidden value="CO_CC">
+                        <input type="text" id="userClass" name="userClass" hidden value="SUPER">
+                        <input type="text" id="eclassId" name="eclassId" hidden value="IMAGE">
+                        <br>
+                        <div class="d-grid"><button class="btn btn-userAdd px-2 py-1" id="submitButton" type="submit" >등록</button></div>
+                    </form>
+                </div>
+            </section>
+
+            <div th:include="common/footer :: footer"></div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script th:src="@{/static/js/api/common.js}"></script>
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inzent.toy.mapper.InquiryMapper">
+	<!-- Common -->
+	<!-- 검색 후 Common 게시글 갯수 출력 -->
+	<select id="countCommonWorksAfterSearch" resultType="int">
+		SELECT COUNT(*) FROM COMMON_TB WHERE TOY_KEY LIKE '%'||#{toyKey}||'%'
+                                   	   AND CUST_NM LIKE '%'||#{custNm}||'%'
+                                       AND RRN_NO LIKE '%'||#{rrnNo}||'%'
+	</select>
+	
+	<!-- 페이징 처리 + 검색 후 Common 게시글 조회 -->
+	<select id="selectCommonWorksByElemnts" resultType="map">
+		SELECT *
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * FROM COMMON_TB WHERE TOY_KEY LIKE '%'||#{commonJson.toyKey}||'%'
+                                   	   			AND CUST_NM LIKE '%'||#{commonJson.custNm}||'%'
+                                       			AND RRN_NO LIKE '%'||#{commonJson.rrnNo}||'%' 
+												ORDER BY REG_DATE_FIN DESC, TOY_KEY ASC
+					) A
+			WHERE ROWNUM <![CDATA[<=]]> #{pVo.offset} + #{pVo.rowCount}
+			)
+		WHERE RN <![CDATA[>]]> #{pVo.offset}
+	</select>
+
+
+	<!-- Deposit -->
+	<!-- 검색 후 Deposit 게시글 갯수 출력 -->
+	<select id="countDepositWorksAfterSearch" resultType="int">
+		SELECT COUNT(*) FROM DEPOSIT_TB WHERE TOY_KEY LIKE '%'||#{toyKey}||'%'
+                                   	    AND CUST_NM LIKE '%'||#{custNm}||'%'
+                                        AND RRN_NO LIKE '%'||#{rrnNo}||'%'
+	</select>
+
+	<!-- 페이징 처리 + 검색 후 Deposit 게시글 조회 -->
+	<select id="selectDepositWorksByElemnts" resultType="map">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * FROM DEPOSIT_TB WHERE TOY_KEY LIKE '%'||#{depositJson.toyKey}||'%'
+                                   	   			 AND CUST_NM LIKE '%'||#{depositJson.custNm}||'%'
+                                       			 AND RRN_NO LIKE '%'||#{depositJson.rrnNo}||'%' 
+												 ORDER BY REG_DATE_FIN DESC, TOY_KEY ASC
+					) A
+			WHERE ROWNUM <![CDATA[<=]]> #{pVo.offset} + #{pVo.rowCount}
+			)
+		WHERE RN <![CDATA[>]]> #{pVo.offset}
+	</select>
+
+	
+	<!-- Loan -->
+	<!-- 검색 후 Loan 게시글 갯수 출력 -->
+	<select id="countLoanWorksAfterSearch" resultType="int">
+		SELECT COUNT(*) FROM LOAN_TB WHERE TOY_KEY LIKE '%'||#{toyKey}||'%'
+                                   	 AND CUST_NM LIKE '%'||#{custNm}||'%'
+                                     AND RRN_NO LIKE '%'||#{rrnNo}||'%'
+	</select>
+	
+	<!-- 페이징 처리 + 검색 후 Loan 게시글 조회 -->
+	<select id="selectLoanWorksByElemnts" resultType="map">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * FROM LOAN_TB WHERE TOY_KEY LIKE '%'||#{loanJson.toyKey}||'%'
+                                   	   		  AND CUST_NM LIKE '%'||#{loanJson.custNm}||'%'
+                                       		  AND RRN_NO LIKE '%'||#{loanJson.rrnNo}||'%' 
+											  ORDER BY REG_DATE_FIN DESC, TOY_KEY ASC
+					) A
+			WHERE ROWNUM <![CDATA[<=]]> #{pVo.offset} + #{pVo.rowCount}
+			)
+		WHERE RN <![CDATA[>]]> #{pVo.offset}
+	</select>
+
+
+	<!-- 공통 -->
+	<!-- 업무키에 따른 이미지 조회 쿼리 -->
+	<select id="selectImageTable" resultType="map">
+		SELECT *
+		FROM IMAGE_TB
+		WHERE TOY_KEY = #{toyKey} AND DEL_YN = 'N' ORDER BY DOC_CD ASC, SEQ_NO ASC
+	</select>
+
+	<!-- image Del_yn 변경 -->
+	<update id="deleteImage">
+		UPDATE IMAGE_TB 
+		SET DEL_YN ='Y' 
+		WHERE ELEMENTID = #{elementId}
+	</update>
+
+	<!-- elementid 에 따른 파일명, 확장자 추출 쿼리 -->
+	<select id="selectFileNmExtension" resultType="map">
+		SELECT FILE_NM, EXTENSION
+		FROM IMAGE_TB
+		WHERE ELEMENTID = #{element}
+	</select>
+</mapper>
