@@ -38,35 +38,40 @@ $(function() {
 	$('#deleteEmployee').click(function() {
 		let deleteEmployeeJson = {};
 
-		var row = $(this).closest('tr');  // 클릭한 버튼이 속한 행
-		var empCd = row.find('td:eq(0)').text();    // 첫 번째 <td> 요소의 텍스트 값
-		var empName = row.find('td:eq(1)').text();  // 두 번째 <td> 요소의 텍스트 값
-		var phoneNo = row.find('td:eq(2)').text();  // 세 번째 <td> 요소의 텍스트 값
-		var email = row.find('td:eq(3)').text();    // 네 번째 <td> 요소의 텍스트 값
-		var orgCd = row.find('td:eq(4)').text();    // 다섯 번째 <td> 요소의 텍스트 값
+		var result = confirm("삭제하시겠습니까?");
 
-		deleteEmployeeJson = {
-			'empCd'   : empCd,
-			'empName' : empName,
-			'phoneNo' : phoneNo,
-			'email'   : email,
-			'orgCd'   : orgCd
+		if (result == true) {
+			var row = $(this).closest('tr');  // 클릭한 버튼이 속한 행
+			var empCd = row.find('td:eq(0)').text();    // 첫 번째 <td> 요소의 텍스트 값
+			var empName = row.find('td:eq(1)').text();  // 두 번째 <td> 요소의 텍스트 값
+			var phoneNo = row.find('td:eq(2)').text();  // 세 번째 <td> 요소의 텍스트 값
+			var email = row.find('td:eq(3)').text();    // 네 번째 <td> 요소의 텍스트 값
+			var orgCd = row.find('td:eq(4)').text();    // 다섯 번째 <td> 요소의 텍스트 값
+	
+			deleteEmployeeJson = {
+				'empCd'   : empCd,
+				'empName' : empName,
+				'phoneNo' : phoneNo,
+				'email'   : email,
+				'orgCd'   : orgCd
+			}
+	
+			let success = function(result) {
+				alert("삭제가 완료되었습니다.");
+				console.log('delete success');
+				history.go(0);
+				location.reload();
+			}
+			let error = function(result) {
+				alert("삭제에 실패하였습니다..");
+				console.log('delete failed');
+				history.go(0);
+				location.reload();
+			}
+	
+			AjaxUtil.ajax("/toy/employee/delete", "POST", deleteEmployeeJson, success, error);
 		}
 
-		let success = function(result) {
-			alert("삭제가 완료되었습니다.");
-			console.log('delete success');
-			history.go(0);
-			location.reload();
-		}
-		let error = function(result) {
-			alert("삭제에 실패하였습니다..");
-			console.log('delete failed');
-			history.go(0);
-			location.reload();
-		}
-
-		AjaxUtil.ajax("/toy/employee/delete", "POST", deleteEmployeeJson, success, error);
 	});
 });
 

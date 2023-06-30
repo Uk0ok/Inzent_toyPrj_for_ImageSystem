@@ -64,14 +64,14 @@
 						<!-- 맨 첫 페이지로 이동하는 버튼 -->  
 						<li class="page-item">
 							<span th:if="${pVo.startPage > 0}">
-								<a class="page-link" th:href="@{'/toy/inquiry?page=1'}" aria-label="Previous">
+								<a class="page-link" th:href="@{'/toy/employee?page=1'}" aria-label="Previous">
 									<span aria-hidden="true">&laquo;</span>
 								</a>
 							</span>
 						</li>
 						<!-- 이전 블록으로 이동하는 버튼 -->
 						<li class="page-item">
-							<a class="page-link" th:href="@{'/toy/inquiry?page='+${pVo.startPage - 1}}">
+							<a class="page-link" th:href="@{'/toy/employee?page='+${pVo.startPage - 1}}">
 								<span aria-hidden="true">&lt;</span>
 							</a>
 						</li>
@@ -81,19 +81,19 @@
 								<a class="page-link" th:href="@{'/toy/inquiry?page='+${pageNum}}" th:text="${pageNum}"></a>
 							</span> -->
 							<span th:each="pageNum : ${#numbers.sequence(pVo.startPage, pVo.endPage)}">
-								<a class="page-link" th:href="@{'/toy/inquiry?page='+${pageNum}}" th:text="${pageNum}"></a>
+								<a class="page-link" th:href="@{'/toy/employee?page='+${pageNum}}" th:text="${pageNum}"></a>
 							</span>
 						</li>
 						<!-- 다음 블록으로 이동하는 버튼 -->
 						<li class="page-item">
-							<a class="page-link" th:href="@{'/toy/inquiry?page='+|${pVo.endPage + 1}|}">
+							<a class="page-link" th:href="@{'/toy/employee?page='+|${pVo.endPage + 1}|}">
 								<span aria-hidden="true">&gt;</span>
 							</a>
 						</li>
 						<!-- 맨 뒷 페이지로 이동하는 버튼 -->
 						<li class="page-item">
 							<span th:if="${pVo.startPage > 0}">
-								<a class="page-link" th:href="@{'/toy/inquiry?page='+${pVo.totalPageCount}}" aria-label="Previous">
+								<a class="page-link" th:href="@{'/toy/employee?page='+${pVo.totalPageCount}}" aria-label="Previous">
 								  <span aria-hidden="true">&raquo;</span>
 								</a>
 							</span>
