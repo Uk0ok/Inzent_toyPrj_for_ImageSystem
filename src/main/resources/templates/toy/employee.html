@@ -54,7 +54,7 @@
                                 <td th:text="${inquiry['PHONE_NO']}"></td>
                                 <td th:text="${inquiry['EMAIL']}"></td>
                                 <td th:text="${inquiry['ORG_CD']}"></td>
-                                <td><input type="button" id="deleteEmployee" class="btn btn-dangerDel" value="삭제" th:disabled="${inquiry['EMP_CD'] == '333001'}"></td>
+                                <td><input type="button" onclick="deleteClick()" class="btn btn-dangerDel" value="삭제" th:disabled="${inquiry['EMP_CD'] == '333001'}"></td>
                             </tr>
                         </tbody>
                     </table>

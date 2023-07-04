@@ -35,7 +35,7 @@ $(function() {
 });
 
 $(function() {
-	$('#deleteEmployee').click(function() {
+		function deleteClick() {
 		let deleteEmployeeJson = {};
 
 		var result = confirm("삭제하시겠습니까?");
@@ -62,7 +62,7 @@ $(function() {
 				history.go(0);
 				location.reload();
 			}
-			let error = function(result) {
+			let error = function(result) { 
 				alert("삭제에 실패하였습니다..");
 				console.log('delete failed');
 				history.go(0);
@@ -71,8 +71,8 @@ $(function() {
 	
 			AjaxUtil.ajax("/toy/employee/delete", "POST", deleteEmployeeJson, success, error);
 		}
-
-	});
+	}
+	window.deleteClick = deleteClick;
 });
 
 let AjaxUtil = {
